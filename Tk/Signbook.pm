@@ -8,6 +8,7 @@ use warnings;
 
 use Tk::LectureStart;
 use Tk::LectureEnd;
+use Tk::RoomsList;
 
 Construct Tk::Widget 'Signbook';
 
@@ -42,12 +43,13 @@ sub Populate {
 	my $lectureEndBtn=$menu->Button( '-text'=>'End', '-command'=>sub { $self->openLectureEnd } )
 						->pack(qw/-side left/);
 	
-	
+	$self->{'roomsList'}=$self->RoomsList()->pack(qw/-side top/);
 }
 
 sub SetSchema {
 	my ($self, $schema) = @_;
 	$self->{'schema'} = $schema;
+	$self->{'roomsList'}->SetSchema($schema);
 }
 
 1;
