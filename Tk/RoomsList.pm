@@ -33,6 +33,13 @@ sub Refresh {
 				$logWindow->configure('-title'=>'Log for '.$room->name);
 				$logWindow->RoomLog()->pack(qw/-side top/)->SetRoom($room);
 			}));
+		$self->put($row,5, $self->Button('-text'=>'start lecture', '-command'=>sub {
+				my $startWindow=$self->Toplevel();
+				$startWindow->configure('-title'=>'Start lecture in '.$room->name);
+				my $lecture=$startWindow->LectureStart()->pack(qw/-side top/);
+				$lecture->SetSchema($self->{'schema'});
+				$lecture->{'room'}->insert('end', $room->name);
+			}));
 		$row++;
 	}
 }
