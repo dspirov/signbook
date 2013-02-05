@@ -9,6 +9,7 @@ use warnings;
 use Tk::LectureStart;
 use Tk::LectureEnd;
 use Tk::RoomsList;
+use Tk::TeachersList;
 
 Construct Tk::Widget 'Signbook';
 
@@ -33,6 +34,13 @@ sub openLectureEnd {
 	$lectureDialog->SetSchema($self->{'schema'});
 }
 
+sub openTeachersList {
+	my $self = shift;
+	my $w=$self->Toplevel('-title'=>'Teachers');
+	my $list=$w->TeachersList()->pack(qw/-side top/);
+	$list->SetSchema($self->{'schema'});
+}
+
 sub Populate {
 	my ($self, $args) = @_;
 	$self->SUPER::Populate($args);
@@ -41,6 +49,8 @@ sub Populate {
 	my $lectureStartBtn=$menu->Button( '-text'=>'Start', '-command'=>sub { $self->openLectureStart; } )
 						->pack(qw/-side left/);
 	my $lectureEndBtn=$menu->Button( '-text'=>'End', '-command'=>sub { $self->openLectureEnd } )
+						->pack(qw/-side left/);
+	my $teachersListBtn=$menu->Button( '-text'=>'Teachers list', '-command'=>sub { $self->openTeachersList } )
 						->pack(qw/-side left/);
 	
 	$self->{'roomsList'}=$self->RoomsList()->pack(qw/-side top/);
