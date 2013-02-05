@@ -36,10 +36,17 @@ sub submit {
 		}
 		else {
 			my $lecture=$lectures->first;
-			$lecture->end(strftime("%Y-%m-%d %H:%M:%S", localtime(time)));
-			$lecture->returned(1);
-			$lecture->update();
-			$self->{'onSubmitCall'}();
+			if($lecture->teacher_id!=$teacher->id)
+			{
+				$self->{'status'}='The room was taken by '
+						.$lecture->teacher->name.', not '.$teacher->name;
+			}
+			else {
+				$lecture->end(strftime("%Y-%m-%d %H:%M:%S", localtime(time)));
+				$lecture->returned(1);
+				$lecture->update();
+				$self->{'onSubmitCall'}();
+			}
 		}
 	}
 }

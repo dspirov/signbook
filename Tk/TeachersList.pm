@@ -8,6 +8,8 @@ use warnings;
 
 Construct Tk::Widget 'TeachersList';
 
+use Tk::TeacherLog;
+
 sub ClassInit {
 	my ($class, $mw) = @_;
 	$class->SUPER::ClassInit($mw);
@@ -24,6 +26,11 @@ sub Refresh {
 	{
 		$self->put($row,1, $teacher->id);
 		$self->put($row,2, $teacher->name);
+		$self->put($row,3, $self->Button('-text'=>'view log', '-command'=>sub {
+				my $logWindow=$self->Toplevel();
+				$logWindow->configure('-title'=>'Log for '.$teacher->name);
+				$logWindow->TeacherLog()->pack(qw/-side top/)->SetTeacher($teacher);
+			}));
 		$row++;
 	}
 }
