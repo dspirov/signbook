@@ -2,6 +2,7 @@
 
 use strict;
 use warnings;
+use utf8;
 
 use Tk;
 use MyDB::Main;
@@ -23,7 +24,8 @@ else {
 
 my $schema=MyDB::Main->connect($config->val('Database','dbname'),
 						$config->val('Database','username'),
-						$config->val('Database','password'));
+						$config->val('Database','password'),
+						{ 'mysql_enable_utf8'=>1 });
 
 
 my $w=Tk::Signbook->new();
