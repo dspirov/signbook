@@ -50,3 +50,27 @@ sub submit {
 		}
 	}
 }
+
+sub Populate {
+	my ($self, $args) = @_;
+	$self->SUPER::Populate($args);
+	
+	# When the teacher field is set, automatically fill in the
+	# room field with the name of the occupied room
+	$self->{'teacher'}->bind('<KeyRelease>' => sub {
+			my $teacher=$self->{'schema'}->resultset('Teacher')
+				->find({ 'name'=>$self->{'teacher'}->get });
+			if(defined($teacher))
+			{
+				my $lectures=$teacher->search_related('lectures', { returned=>0 },
+						{ 'prefetch'=>'room' });
+				if($lectures->count>0)
+				{
+					$self->{'room'}->delete(0,'end');
+					$self->{'room'}->insert('end', $lectures->first->room->name);
+				}
+			}
+		});
+}
+
+1;
