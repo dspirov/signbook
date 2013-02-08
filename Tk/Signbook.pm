@@ -45,12 +45,14 @@ sub Populate {
 	my ($self, $args) = @_;
 	$self->SUPER::Populate($args);
 	
-	my $menu=$self->Frame()->pack(qw/-side top/);
-	my $lectureStartBtn=$menu->Button( '-text'=>'Start', '-command'=>sub { $self->openLectureStart; } )
+	my $userMenu=$self->Frame()->pack(qw/-side top/);
+	my $lectureStartBtn=$userMenu->Button( '-text'=>'Start', '-command'=>sub { $self->openLectureStart; } )
 						->pack(qw/-side left/);
-	my $lectureEndBtn=$menu->Button( '-text'=>'End', '-command'=>sub { $self->openLectureEnd } )
+	my $lectureEndBtn=$userMenu->Button( '-text'=>'End', '-command'=>sub { $self->openLectureEnd } )
 						->pack(qw/-side left/);
-	my $teachersListBtn=$menu->Button( '-text'=>'Teachers list', '-command'=>sub { $self->openTeachersList } )
+	
+	my $adminMenu=$self->Frame()->pack(qw/-side top/);
+	my $teachersListBtn=$adminMenu->Button( '-text'=>'Teachers list', '-command'=>sub { $self->openTeachersList } )
 						->pack(qw/-side left/);
 	
 	$self->{'roomsList'}=$self->RoomsList()->pack(qw/-side top/);
