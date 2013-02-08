@@ -29,7 +29,7 @@ my $schema=MyDB::Main->connect($config->val('Database','dbname'),
 
 
 my $w=Tk::Signbook->new();
-$w->configure('-title'=> 'test');
+$w->configure('-title'=> 'Signbook');
 $w->SetSchema($schema);
 
 MainLoop();
