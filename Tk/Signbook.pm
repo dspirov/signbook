@@ -10,6 +10,7 @@ use Tk::LectureStart;
 use Tk::LectureEnd;
 use Tk::RoomsList;
 use Tk::TeachersAdministration;
+use Tk::RoomsAdministration;
 
 Construct Tk::Widget 'Signbook';
 
@@ -39,6 +40,11 @@ sub openTeachersDialog {
 	$self->TeachersAdministration()->SetSchema($self->{'schema'});
 }
 
+sub openRoomsDialog {
+	my $self = shift;
+	$self->RoomsAdministration()->SetSchema($self->{'schema'});
+}
+
 sub Populate {
 	my ($self, $args) = @_;
 	$self->SUPER::Populate($args);
@@ -50,7 +56,9 @@ sub Populate {
 						->pack(qw/-side left/);
 	
 	my $adminMenu=$self->Frame()->pack(qw/-side top/);
-	my $teachersListBtn=$adminMenu->Button( '-text'=>'Edit Teachers', '-command'=>sub { $self->openTeachersDialog } )
+	my $teachersAdminBtn=$adminMenu->Button( '-text'=>'Edit Teachers', '-command'=>sub { $self->openTeachersDialog } )
+						->pack(qw/-side left/);
+	my $roomsAdminBtn=$adminMenu->Button( '-text'=>'Edit Rooms', '-command'=>sub { $self->openRoomsDialog } )
 						->pack(qw/-side left/);
 	
 	$self->{'roomsList'}=$self->RoomsList()->pack(qw/-side top/);
