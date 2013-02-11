@@ -32,7 +32,7 @@ sub Populate {
 sub SetSchema {
 	my ($self, $schema) = @_;
 	$self->{'schema'} = $schema;
-	$self->{'list'}->SetSchema($schema);
+	$self->{'list'}->SetSchema($schema, 1);
 }
 
 1;

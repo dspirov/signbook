@@ -9,6 +9,7 @@ use warnings;
 Construct Tk::Widget 'RoomsList';
 
 use Tk::RoomLog;
+use Tk::RoomEdit;
 
 sub ClassInit {
 	my ($class, $mw) = @_;
@@ -41,6 +42,9 @@ sub Refresh {
 				$lecture->SetSchema($self->{'schema'});
 				$lecture->{'room'}->insert('end', $room->name);
 			}));
+		$self->put($row,5, $self->Button('-text'=>'edit', '-command'=>sub {
+				$self->RoomEdit()->SetRoom($room);
+			})) if($self->{'showEdit'});
 		$row++;
 	}
 }
@@ -51,8 +55,9 @@ sub Populate {
 }
 
 sub SetSchema {
-	my ($self, $schema) = @_;
+	my ($self, $schema, $showEdit) = @_;
 	$self->{'schema'} = $schema;
+	$self->{'showEdit'} = $showEdit;
 	$self->Refresh();
 }
 
