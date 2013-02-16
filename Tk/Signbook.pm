@@ -5,6 +5,7 @@ package Tk::Signbook;
 use base qw/Tk::MainWindow/;
 use strict;
 use warnings;
+use utf8;
 
 use Tk::LectureStart;
 use Tk::LectureEnd;
@@ -21,7 +22,7 @@ sub ClassInit {
 
 sub openLectureStart {
 	my $self = shift;
-	my $w=$self->Toplevel('-title'=>'Start Lecture');
+	my $w=$self->Toplevel('-title'=>'Начало на лекция');
 	my $lectureDialog=$w->LectureStart()->pack(qw/-side top/);
 	$lectureDialog->SetOnSubmit(sub { $w->destroy(); });
 	$lectureDialog->SetSchema($self->{'schema'});
@@ -29,7 +30,7 @@ sub openLectureStart {
 
 sub openLectureEnd {
 	my $self = shift;
-	my $w=$self->Toplevel('-title'=>'End Lecture');
+	my $w=$self->Toplevel('-title'=>'Край на лекция');
 	my $lectureDialog=$w->LectureEnd()->pack(qw/-side top/);
 	$lectureDialog->SetOnSubmit(sub { $w->destroy(); });
 	$lectureDialog->SetSchema($self->{'schema'});
@@ -50,15 +51,15 @@ sub Populate {
 	$self->SUPER::Populate($args);
 	
 	my $userMenu=$self->Frame()->pack(qw/-side top/);
-	my $lectureStartBtn=$userMenu->Button( '-text'=>'Start', '-command'=>sub { $self->openLectureStart; } )
+	my $lectureStartBtn=$userMenu->Button( '-text'=>'начало лекция', '-command'=>sub { $self->openLectureStart; } )
 						->pack(qw/-side left/);
-	my $lectureEndBtn=$userMenu->Button( '-text'=>'End', '-command'=>sub { $self->openLectureEnd } )
+	my $lectureEndBtn=$userMenu->Button( '-text'=>'край лекция', '-command'=>sub { $self->openLectureEnd } )
 						->pack(qw/-side left/);
 	
 	my $adminMenu=$self->Frame()->pack(qw/-side top/);
-	my $teachersAdminBtn=$adminMenu->Button( '-text'=>'Edit Teachers', '-command'=>sub { $self->openTeachersDialog } )
+	my $teachersAdminBtn=$adminMenu->Button( '-text'=>'редактиране на учители', '-command'=>sub { $self->openTeachersDialog } )
 						->pack(qw/-side left/);
-	my $roomsAdminBtn=$adminMenu->Button( '-text'=>'Edit Rooms', '-command'=>sub { $self->openRoomsDialog } )
+	my $roomsAdminBtn=$adminMenu->Button( '-text'=>'редактиране на стаи', '-command'=>sub { $self->openRoomsDialog } )
 						->pack(qw/-side left/);
 	
 	$self->{'roomsList'}=$self->RoomsList()->pack(qw/-side top/);

@@ -6,6 +6,7 @@ use base qw/Tk::Lecture/;
 use strict;
 use warnings;
 use POSIX qw/strftime/;
+use utf8;
 
 Construct Tk::Widget 'LectureEnd';
 
@@ -18,17 +19,17 @@ sub submit {
 	
 	if(!defined($teacher))
 	{
-		$self->{'status'}='No such teacher';
+		$self->{'status'}='Несъществуващ учител';
 	}
 	elsif(!defined($room))
 	{
-		$self->{'status'}='No such room';
+		$self->{'status'}='Несъществуваща стая';
 	}
 	else {
 		my $lectures=$room->search_related('lectures', { 'returned'=>0 });
 		if($lectures->count<1)
 		{
-			$self->{'status'}='The room is already free';
+			$self->{'status'}='Тази стая вече е освободена';
 		}
 		elsif($lectures->count>1)
 		{
@@ -38,8 +39,8 @@ sub submit {
 			my $lecture=$lectures->first;
 			if($lecture->teacher_id!=$teacher->id)
 			{
-				$self->{'status'}='The room was taken by '
-						.$lecture->teacher->name.', not '.$teacher->name;
+				$self->{'status'}='Стаята е заета от '
+						.$lecture->teacher->name.', а не '.$teacher->name;
 			}
 			else {
 				$lecture->end(strftime("%Y-%m-%d %H:%M:%S", localtime(time)));

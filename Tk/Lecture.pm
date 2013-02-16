@@ -5,6 +5,7 @@ package Tk::Lecture;
 use base qw/Tk::Frame/;
 use strict;
 use warnings;
+use utf8;
 
 Construct Tk::Widget 'Lecture';
 
@@ -31,11 +32,11 @@ sub Populate {
 	my ($self, $args) = @_;
 	$self->SUPER::Populate($args);
 	
-	my $teacherLabel=$self->Label(qw/-text teacher/);
+	my $teacherLabel=$self->Label('-text'=>'учител');
 	my $teacher=$self->Entry();
-	my $roomLabel=$self->Label(qw/-text room/);
+	my $roomLabel=$self->Label('-text'=>'стая');
 	my $room=$self->Entry();
-	my $saveBtn=$self->Button('-text'=>'Save', '-command'=> sub { $self->submit(); });
+	my $saveBtn=$self->Button('-text'=>'запази', '-command'=> sub { $self->submit(); });
 	$self->{'status'}='';
 	my $statusLabel=$self->Label('-textvariable'=>\$self->{'status'});
 	

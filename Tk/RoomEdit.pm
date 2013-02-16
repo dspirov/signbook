@@ -5,6 +5,7 @@ package Tk::RoomEdit;
 use base qw/Tk::Room/;
 use strict;
 use warnings;
+use utf8;
 
 Construct Tk::Widget 'RoomEdit';
 
@@ -17,7 +18,7 @@ sub SetRoom {
 	$self->{'capacity'}->delete(0, 'end');
 	$self->{'capacity'}->insert('end', $room->capacity);
 	
-	$self->configure('-title'=>'Edit room: '.$room->name);
+	$self->configure('-title'=>'Редактиране на стая: '.$room->name);
 }
 
 sub Submit {
@@ -25,5 +26,5 @@ sub Submit {
 	$self->{'room'}->name($self->{'name'}->get);
 	$self->{'room'}->capacity($self->{'capacity'}->get);
 	$self->{'room'}->update();
-	$self->configure('-title'=>'Edit room: '.$self->{'room'}->name);
+	$self->configure('-title'=>'Редактиране на стая: '.$self->{'room'}->name);
 }

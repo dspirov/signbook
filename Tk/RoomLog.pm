@@ -5,6 +5,7 @@ package Tk::RoomLog;
 use base qw/Tk::Table/;
 use strict;
 use warnings;
+use utf8;
 
 Construct Tk::Widget 'RoomLog';
 
@@ -20,9 +21,9 @@ sub Refresh
 	my $row=1;
 	$self->configure(qw/-fixedrows 1/);
 	$self->clear;
-	$self->put(0,0, "Teacher");
-	$self->put(0,1, "Start");
-	$self->put(0,2, "End");
+	$self->put(0,0, "Учител");
+	$self->put(0,1, "Начало");
+	$self->put(0,2, "Край");
 	while( my $lecture = $data->next )
 	{
 		$self->put($row, 0, $lecture->teacher->name);

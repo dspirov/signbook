@@ -6,6 +6,7 @@ use base qw/Tk::Lecture/;
 use strict;
 use warnings;
 use POSIX qw/strftime/;
+use utf8;
 
 Construct Tk::Widget 'LectureStart';
 
@@ -18,15 +19,15 @@ sub submit {
 	
 	if(!defined($teacher))
 	{
-		$self->{'status'}='No such teacher';
+		$self->{'status'}='Несъществуващ учител';
 	}
 	elsif(!defined($room))
 	{
-		$self->{'status'}='No such room';
+		$self->{'status'}='Несъществуваща стая';
 	}
 	elsif($room->search_related('lectures', { 'returned'=>0 })->count>0)
 	{
-		$self->{'status'}='This room is taken';
+		$self->{'status'}='Тази стая е заета';
 	}
 	else {
 		$self->{'schema'}->resultset('Lecture')->create({
