@@ -42,9 +42,16 @@ sub Refresh {
 				$lecture->SetSchema($self->{'schema'});
 				$lecture->{'room'}->insert('end', $room->name);
 			}));
-		$self->put($row,5, $self->Button('-text'=>'edit', '-command'=>sub {
-				$self->RoomEdit()->SetRoom($room);
-			})) if($self->{'showEdit'});
+		if($self->{'showEdit'})
+		{
+			$self->put($row,5, $self->Button('-text'=>'edit', '-command'=>sub {
+					$self->RoomEdit()->SetRoom($room);
+				}));
+			$self->put($row,6, $self->Button('-text'=>'delete', '-command'=>sub {
+					$room->delete();
+					$self->Refresh();
+				}));
+		}
 		$row++;
 	}
 }

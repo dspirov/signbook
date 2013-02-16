@@ -36,6 +36,10 @@ sub Refresh {
 		$self->put($row,3, $self->Button('-text'=>'edit', '-command'=>sub {
 					$self->TeacherEdit()->SetTeacher($teacher);
 			}));
+		$self->put($row,4, $self->Button('-text'=>'delete', '-command'=>sub {
+					$teacher->delete();
+					$self->Refresh();
+			}));
 		$row++;
 	}
 }
