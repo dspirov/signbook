@@ -29,6 +29,10 @@ sub submit {
 	{
 		$self->{'status'}='Тази стая е заета';
 	}
+	elsif($teacher->search_related('lectures', { 'returned'=>0 })->count>0)
+	{
+		$self->{'status'}='Този учител вече е взел стая';
+	}
 	else {
 		$self->{'schema'}->resultset('Lecture')->create({
 				room_id    => $room->id,
@@ -36,6 +40,6 @@ sub submit {
 				start      => strftime("%Y-%m-%d %H:%M:%S", localtime(time)),
 				returned   => 0,
 			});
-		$self->{'onSubmitCall'}();
+		$self->{'onSubmitCall'}() if(defined($self->{'onSubmitCall'}));
 	}
 }

@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `lectures` (
   `end` datetime NOT NULL,
   `returned` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
 
 -- --------------------------------------------------------
 
